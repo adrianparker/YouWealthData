@@ -5,6 +5,8 @@ var UnitPriceParser = require('./unitPriceParser')
 
 var apiKey
 var filename
+var unitPricesByDate = {}
+const oneDayInMilliseconds = 86400000
 
 function start () {
   var pjson = require('./package.json')
@@ -43,7 +45,22 @@ function start () {
 }
 
 function retrieveYouWealthUnitPrices () {
-
+  const inceptionDate = new Date('2018-05-21')
+  var msSinceInception = inceptionDate.valueOf()
+  while (msSinceInception < Date.now()) {
+    // get unit prices for msSinceInception
+    var thisDate = new Date(msSinceInception)
+    var thisDateString = thisDate.toISOString().split('T')[0]
+    if (thisDate.getDay() === 0 || thisDate.getDay() === 6) {
+      // skip weekends as no unit prices on weekends
+      console.log('Skipping ' + thisDateString)
+    } else {
+      console.log('Get unit prices for ' + thisDateString)
+      // store in unitPricesByDate under propertyName of yyyy-mm-dd
+      // increment msSinceInception by one day      
+    }
+    msSinceInception += oneDayInMilliseconds;
+  }
 }
 
 start()
