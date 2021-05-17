@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-unused-vars */
 var argv = require('argv')
 var UnitPriceFetcher = require('./unitPriceFetcher')
 var UnitPriceParser = require('./unitPriceParser')
@@ -8,7 +9,7 @@ var filename
 var unitPricesByDate = {}
 const oneDayInMilliseconds = 86400000
 
-function start () {
+function start() {
   var pjson = require('./package.json')
   var args
   console.log('YouWealthData v ' + pjson.version)
@@ -30,6 +31,7 @@ function start () {
   args = argv.run()
   if (Object.getOwnPropertyNames(args.options).length === 0) {
     console.log('No command line options supplied.')
+    argv.help()
     process.exit(1)
   } else if ((Object.getOwnPropertyNames(args.options).length !== 2) ||
     (args.options.filename === null) ||
@@ -44,7 +46,7 @@ function start () {
   }
 }
 
-function retrieveYouWealthUnitPrices () {
+function retrieveYouWealthUnitPrices() {
   const inceptionDate = new Date('2018-05-21')
   var msSinceInception = inceptionDate.valueOf()
   while (msSinceInception < Date.now()) {
@@ -57,9 +59,9 @@ function retrieveYouWealthUnitPrices () {
     } else {
       console.log('Get unit prices for ' + thisDateString)
       // store in unitPricesByDate under propertyName of yyyy-mm-dd
-      // increment msSinceInception by one day      
+      // increment msSinceInception by one day
     }
-    msSinceInception += oneDayInMilliseconds;
+    msSinceInception += oneDayInMilliseconds
   }
 }
 

@@ -1,0 +1,19 @@
+{
+    "env": {
+        "node": true
+    },
+    "extends": "standard",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 5
+    },
+    "rules": {
+        "space-before-function-paren": [
+            "error",
+            "never"
+        ]
+    }
+}
