@@ -36,7 +36,7 @@ function start() {
   } else if ((Object.getOwnPropertyNames(args.options).length !== 2) ||
     (args.options.filename === null) ||
     (args.options.api_key === null)) {
-    console.log('Please provide all command line options.')
+    console.log('Please provide only api_key and filename command line options.')
     argv.help()
     process.exit(1)
   } else {
@@ -48,21 +48,36 @@ function start() {
 
 function retrieveYouWealthUnitPrices() {
   const inceptionDate = new Date('2018-05-21')
-  var msSinceInception = inceptionDate.valueOf()
+  let msSinceInception = inceptionDate.valueOf()
+  let priceDates = []
   while (msSinceInception < Date.now()) {
     // get unit prices for msSinceInception
-    var thisDate = new Date(msSinceInception)
-    var thisDateString = thisDate.toISOString().split('T')[0]
-    if (thisDate.getDay() === 0 || thisDate.getDay() === 6) {
-      // skip weekends as no unit prices on weekends
-      console.log('Skipping ' + thisDateString)
-    } else {
-      console.log('Get unit prices for ' + thisDateString)
-      // store in unitPricesByDate under propertyName of yyyy-mm-dd
-      // increment msSinceInception by one day
+    let thisDate = new Date(msSinceInception)
+    let thisDateString = thisDate.toISOString().split('T')[0]
+    if (thisDate.getDay() !== 0 && thisDate.getDay() !== 6) {
+      priceDates.push(thisDateString)
     }
-    msSinceInception += oneDayInMilliseconds
+    // TODO this is a temporary handbrake to avoid smashing the API
+    if (priceDates.length >= 2) {
+      msSinceInception = Date.now()
+    } else {
+      // increment msSinceInception by one day
+      msSinceInception += oneDayInMilliseconds
+    }
   }
+  if (priceDates.length > 0) {
+    console.log('Processing for', priceDates.length, 'unit price dates')
+    UnitPriceFetcher.getUnitPricesForDates(apiKey, priceDates, writeUnitPriceCSV)
+  }
+}
+
+function writeUnitPriceCSV(fundPricesForDates) {
+  Object.keys(fundPricesForDates).forEach(function (date, index) {
+    let pricesForDate = fundPricesForDates[date]
+    for (const [key, price] of Object.entries(pricesForDate)) {
+      console.log(date, key, String(price.fundName).padEnd(24, ' ') + ' as at ' + price.date + ' : BUY ' + price.buyPrice.amount + ' : SELL ' + price.sellPrice.amount)
+    }
+  })
 }
 
 start()

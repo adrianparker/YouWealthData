@@ -27,7 +27,6 @@ exports.getPricesForDate = function (apiKey, date, callback, err) {
         path: { 'yyyy-mm-dd': pricesAtDate },
         headers: { 'ApiKey': apiKey }
       }
-      // eslint-disable-next-line no-unused-vars
       // eslint-disable-next-line no-template-curly-in-string
       client.get('https://api.bnz.co.nz/v1/fundunitprices?date=${yyyy-mm-dd}&fundProduct=retailManagedFund', args, function (data, response) {
         var fundUnitPrices = JSON.parse(data)

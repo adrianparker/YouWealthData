@@ -7,10 +7,9 @@ var UnitPriceParser = require('./unitPriceParser')
  * @param callback function to invoke when prices have been obtained for all dates
  */
 exports.getUnitPricesForDates = function (apiKey, dates, callback) {
-  var promises = []
-  var results = {}
+  const promises = []
+  let results = {}
   dates.forEach(element => {
-    // TODO need to store the payload resolved etc
     promises.push(new Promise(function (resolve, reject) {
       UnitPriceParser.getPricesForDate(apiKey, element, function (result) {
         results[element] = result
