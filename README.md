@@ -5,7 +5,7 @@ Work in progress. As at May 2021 this program does nothing but is once again bei
 
 ## BNZ API Key
 You will need access to a BNZ Fund Unit Prices API Key to use this application. 
-BNZ (I believe intentionally) make a key publicly available in the source of https://www.bnz.co.nz - look at the value assigned to 'apiKey' of window.__bootstrap in a script tag.
+BNZ make a key publicly available in the source of https://www.bnz.co.nz - look at the value assigned to 'apiKey' of window.__bootstrap in a script tag.
 
 ## Installation
 Ensure you have node installed. (Any modern version should be fine). 
