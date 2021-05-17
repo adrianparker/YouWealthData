@@ -1,13 +1,15 @@
 # YouWealthData
 
 ## Project status
-Work in progress. As at July 2019 this program does nothing.
+Work in progress. As at May 2021 this program does nothing but is once again being worked on.
 
 ## BNZ API Key
-You will need your own BNZ Fund Unit Prices API Key to use this application. As at July 2019, I use the API Key that BNZ make available in the public source of their website. (Visit https://www.bnz.co.nz and view source)
+You will need access to a BNZ Fund Unit Prices API Key to use this application. 
+BNZ (I believe intentionally) make a key publicly available in the source of https://www.bnz.co.nz - look at the value assigned to 'apiKey' of window.__bootstrap in a script tag.
 
 ## Installation
-Ensure you have node installed. (v10.16.0 is the version app is developed against, but anything modern should be fine). Clone the repo to a local directory. Change into that directory. Use npm to install the application.
+Ensure you have node installed. (Any modern version should be fine). 
+Clone the repo to a local directory. Change into that directory. Use npm to install the application.
 
 ```
 cd YouWealthData
@@ -15,7 +17,9 @@ npm install
 ```
 
 ## Usage
-Use this application to download a .csv file of BNZ YouWealth unit prices. For this you will need to supply the BNZ API key to use, as well as a path to the .csv file you would like to generate. For example:
+Use this application to create a local .csv file of BNZ YouWealth unit prices. 
+You will need to supply the BNZ API key to use, as well as a path to the .csv file you would like to generate. 
+For example:
 
 ```
 cd YouWealthData
