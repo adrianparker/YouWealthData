@@ -61,5 +61,7 @@ typings/
 .next
 
 # vscode editor cruft
-.vscode/launch.json
-.vscode/settings.json
+.vscode/
+
+# prevent upload of any temporary files I generate
+temp/

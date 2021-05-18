@@ -1,13 +1,11 @@
 #!/usr/bin/env node
-/* eslint-disable no-unused-vars */
-var argv = require('argv')
-var UnitPriceFetcher = require('./unitPriceFetcher')
-var UnitPriceParser = require('./unitPriceParser')
-
-var apiKey
-var filename
-var unitPricesByDate = {}
+const argv = require('argv')
+const UnitPriceFetcher = require('./unitPriceFetcher')
+const createCsvWriter = require('csv-writer').createObjectCsvWriter
 const oneDayInMilliseconds = 86400000
+
+let apiKey
+let filename
 
 function start() {
   var pjson = require('./package.json')
@@ -67,16 +65,39 @@ function retrieveYouWealthUnitPrices() {
   }
   if (priceDates.length > 0) {
     console.log('Processing for', priceDates.length, 'unit price dates')
-    UnitPriceFetcher.getUnitPricesForDates(apiKey, priceDates, writeUnitPriceCSV)
+    UnitPriceFetcher.getUnitPricesForDates(apiKey, priceDates.reverse(), writeUnitPriceCSV)
   }
 }
 
 function writeUnitPriceCSV(fundPricesForDates) {
+  const csvWriter = createCsvWriter({
+    path: filename,
+    header: [
+      { id: 'pricedate', title: 'DATE' },
+      { id: 'BNZ2112011-buy', title: 'BNZ2112011 Buy' },
+      { id: 'BNZ2112011-sell', title: 'BNZ2112011 Sell' },
+      { id: 'BNZ2112010-buy', title: 'BNZ2112010 Buy' },
+      { id: 'BNZ2112010-sell', title: 'BNZ2112010 Sell' },
+      { id: 'BNZ2112007-buy', title: 'BNZ2112007 Buy' },
+      { id: 'BNZ2112007-sell', title: 'BNZ2112007 Sell' },
+      { id: 'BNZ2112009-buy', title: 'BNZ2112009 Buy' },
+      { id: 'BNZ2112009-sell', title: 'BNZ2112009 Sell' },
+      { id: 'BNZ2112008-buy', title: 'BNZ2112008 Buy' },
+      { id: 'BNZ2112008-sell', title: 'BNZ2112008 Sell' }
+    ]
+  })
+  const records = []
   Object.keys(fundPricesForDates).forEach(function (date, index) {
     let pricesForDate = fundPricesForDates[date]
+    let thisDateRecord = { 'pricedate': date }
     for (const [key, price] of Object.entries(pricesForDate)) {
-      console.log(date, key, String(price.fundName).padEnd(24, ' ') + ' as at ' + price.date + ' : BUY ' + price.buyPrice.amount + ' : SELL ' + price.sellPrice.amount)
+      thisDateRecord[key + '-buy'] = price.buyPrice.amount
+      thisDateRecord[key + '-sell'] = price.sellPrice.amount
     }
+    records.push(thisDateRecord)
+  })
+  csvWriter.writeRecords(records).then(() => {
+    console.log('...Done')
   })
 }
 
