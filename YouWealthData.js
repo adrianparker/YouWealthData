@@ -56,7 +56,7 @@ function retrieveYouWealthUnitPrices() {
       priceDates.push(thisDateString)
     }
     // TODO this is a temporary handbrake to avoid smashing the API
-    if (priceDates.length >= 2) {
+    if (priceDates.length >= 200) {
       msSinceInception = Date.now()
     } else {
       // increment msSinceInception by one day
@@ -65,7 +65,7 @@ function retrieveYouWealthUnitPrices() {
   }
   if (priceDates.length > 0) {
     console.log('Processing for', priceDates.length, 'unit price dates')
-    UnitPriceFetcher.getUnitPricesForDates(apiKey, priceDates.reverse(), writeUnitPriceCSV)
+    UnitPriceFetcher.getUnitPricesForDates(apiKey, priceDates, writeUnitPriceCSV)
   }
 }
 
@@ -87,7 +87,9 @@ function writeUnitPriceCSV(fundPricesForDates) {
     ]
   })
   const records = []
-  Object.keys(fundPricesForDates).forEach(function (date, index) {
+  const keys = Object.keys(fundPricesForDates)
+  keys.sort()
+  keys.forEach(function (date, index) {
     let pricesForDate = fundPricesForDates[date]
     let thisDateRecord = { 'pricedate': date }
     for (const [key, price] of Object.entries(pricesForDate)) {

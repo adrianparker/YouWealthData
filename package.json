@@ -1,7 +1,7 @@
 {
   "name": "youwealth-data",
   "description": "Utility for downloading YouWealth unit prices into a local .csv file",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "homepage": "https://github.com/adrianparker/YouWealthData",
   "author": "Adrian Parker <adrian@iceknife.com>",
   "keywords": [
