@@ -1,15 +1,21 @@
 #!/usr/bin/env node
 const argv = require('argv')
+const _ = require('lodash')
 const UnitPriceFetcher = require('./unitPriceFetcher')
 const createCsvWriter = require('csv-writer').createObjectCsvWriter
 const oneDayInMilliseconds = 86400000
+const priceDates = []
 
 let apiKey
 let filename
+let fundPricesForDates = {}
 
+/**
+ * Entry function for the application. Validates program inputs and invokes unit price date calculation if correct;
+ * otherwise emits help content and exits.
+ */
 function start() {
-  var pjson = require('./package.json')
-  var args
+  const pjson = require('./package.json')
   console.log('YouWealthData v ' + pjson.version)
   argv.version(pjson.version)
   argv.option({
@@ -26,7 +32,7 @@ function start() {
     description: 'Path of .csv file',
     example: "'YouWealthData --filename=FOO' or 'YouWealthData -f BAR'"
   })
-  args = argv.run()
+  let args = argv.run()
   if (Object.getOwnPropertyNames(args.options).length === 0) {
     console.log('No command line options supplied.')
     argv.help()
@@ -44,10 +50,13 @@ function start() {
   }
 }
 
+/**
+ * Generates the list of weekdays to retrieve fund prices for.
+ * If there are any, invokes the retrieval loop.
+ */
 function retrieveYouWealthUnitPrices() {
   const inceptionDate = new Date('2018-05-21')
   let msSinceInception = inceptionDate.valueOf()
-  let priceDates = []
   while (msSinceInception < Date.now()) {
     // get unit prices for msSinceInception
     let thisDate = new Date(msSinceInception)
@@ -55,21 +64,51 @@ function retrieveYouWealthUnitPrices() {
     if (thisDate.getDay() !== 0 && thisDate.getDay() !== 6) {
       priceDates.push(thisDateString)
     }
-    // TODO this is a temporary handbrake to avoid smashing the API
-    if (priceDates.length >= 200) {
-      msSinceInception = Date.now()
-    } else {
-      // increment msSinceInception by one day
-      msSinceInception += oneDayInMilliseconds
-    }
+    // if (priceDates.length < 36) {
+    //   // increment msSinceInception by one day
+    msSinceInception += oneDayInMilliseconds
+    // } else {
+    //   msSinceInception = Date.now()
+    // }
   }
   if (priceDates.length > 0) {
-    console.log('Processing for', priceDates.length, 'unit price dates')
-    UnitPriceFetcher.getUnitPricesForDates(apiKey, priceDates, writeUnitPriceCSV)
+    console.log('Processing for', priceDates.length, 'unit price dates...')
+    retrieveNextBatchOfUnitPrices()
+  } else {
+    console.log('No unit price dates available')
+    process.exit(2)
   }
 }
 
-function writeUnitPriceCSV(fundPricesForDates) {
+/**
+ * Retrieves unit prices in groups of maximum 10 dates at a time to avoid swamping BNZ's API.
+ */
+function retrieveNextBatchOfUnitPrices() {
+  if (priceDates.length > 10) {
+    UnitPriceFetcher.getUnitPricesForDates(apiKey, priceDates.splice(0, 10), processNextBatchOfUnitPrices)
+  } else {
+    UnitPriceFetcher.getUnitPricesForDates(apiKey, priceDates.splice(0, priceDates.length), processNextBatchOfUnitPrices)
+  }
+}
+
+/**
+ * Stores this batch of unit prices for dates, and either requests the next or invokes CSV generation if no dates left to retrieve.
+*/
+function processNextBatchOfUnitPrices(batchOfFundPrices) {
+  console.log('...processing', Object.keys(batchOfFundPrices).length, 'unit price dates')
+  _.merge(fundPricesForDates, batchOfFundPrices)
+  if (priceDates.length > 0) {
+    retrieveNextBatchOfUnitPrices()
+  } else {
+    writeUnitPriceCSV()
+  }
+}
+
+/**
+ * Writes the unit prices for each date to CSV file at file path provided when program was invoked.
+ */
+function writeUnitPriceCSV() {
+  console.log('...writing CSV to ', filename)
   const csvWriter = createCsvWriter({
     path: filename,
     header: [
@@ -103,4 +142,5 @@ function writeUnitPriceCSV(fundPricesForDates) {
   })
 }
 
+// Invoke entry function.
 start()
