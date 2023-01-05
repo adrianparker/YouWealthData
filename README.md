@@ -1,7 +1,7 @@
 # YouWealthData
 
 ## Project status
-Work in progress. As at May 2021 this program does nothing but is once again being worked on.
+Complete, ready to use.
 
 ## BNZ API Key
 You will need access to a BNZ Fund Unit Prices API Key to use this application. 

@@ -64,12 +64,7 @@ function retrieveYouWealthUnitPrices() {
     if (thisDate.getDay() !== 0 && thisDate.getDay() !== 6) {
       priceDates.push(thisDateString)
     }
-    // if (priceDates.length < 36) {
-    //   // increment msSinceInception by one day
     msSinceInception += oneDayInMilliseconds
-    // } else {
-    //   msSinceInception = Date.now()
-    // }
   }
   if (priceDates.length > 0) {
     console.log('Processing for', priceDates.length, 'unit price dates...')
@@ -95,7 +90,7 @@ function retrieveNextBatchOfUnitPrices() {
  * Stores this batch of unit prices for dates, and either requests the next or invokes CSV generation if no dates left to retrieve.
 */
 function processNextBatchOfUnitPrices(batchOfFundPrices) {
-  console.log('...processing', Object.keys(batchOfFundPrices).length, 'unit price dates')
+  console.log('...processing', Object.keys(batchOfFundPrices).length, 'unit price dates;',priceDates.length,'remaining')
   _.merge(fundPricesForDates, batchOfFundPrices)
   if (priceDates.length > 0) {
     retrieveNextBatchOfUnitPrices()
