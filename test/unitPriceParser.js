@@ -43,6 +43,7 @@ function getApiKeyFromProcessArgs () {
       return str.substr(10)
     }
   }
+  return process.env.BNZAPIKEY;
 }
 
 function assertValidFundPricesObject (result) {
