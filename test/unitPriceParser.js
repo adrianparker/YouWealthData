@@ -36,17 +36,17 @@ describe('UnitPriceParser', function () {
   })
 })
 
-function getApiKeyFromProcessArgs () {
+function getApiKeyFromProcessArgs() {
   for (var index in process.argv) {
     var str = process.argv[index]
     if (str.indexOf('--api_key') === 0) {
       return str.substr(10)
     }
   }
-  return process.env.BNZAPIKEY;
+  return process.env.BNZAPIKEY
 }
 
-function assertValidFundPricesObject (result) {
+function assertValidFundPricesObject(result) {
   assert.strictEqual(Object.keys(result).length, 5)
   assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112007'), true)
   assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112008'), true)

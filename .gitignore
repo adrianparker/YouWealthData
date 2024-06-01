@@ -68,3 +68,7 @@ typings/
 
 # prevent upload of any temporary files I generate
 temp/
+
+# MacOS cruft
+
+.DS_Store

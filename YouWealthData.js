@@ -90,7 +90,7 @@ function retrieveNextBatchOfUnitPrices() {
  * Stores this batch of unit prices for dates, and either requests the next or invokes CSV generation if no dates left to retrieve.
 */
 function processNextBatchOfUnitPrices(batchOfFundPrices) {
-  console.log('...processing', Object.keys(batchOfFundPrices).length, 'unit price dates;',priceDates.length,'remaining')
+  console.log('...processing', Object.keys(batchOfFundPrices).length, 'unit price dates;', priceDates.length, 'remaining')
   _.merge(fundPricesForDates, batchOfFundPrices)
   if (priceDates.length > 0) {
     retrieveNextBatchOfUnitPrices()
