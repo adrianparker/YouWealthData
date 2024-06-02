@@ -1,14 +1,13 @@
 {
   "name": "youwealth-data",
   "description": "Utility for downloading YouWealth unit prices into a local .csv file",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "homepage": "https://github.com/adrianparker/YouWealthData",
   "author": "Adrian Parker <adrian@iceknife.com>",
   "keywords": [
     "BNZ",
     "YouWealth",
     "csv",
-    "new-zealand",
     "managed-fund"
   ],
   "dependencies": {
