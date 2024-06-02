@@ -1,6 +1,10 @@
 # YouWealthData
 
-BNZ sell a family of diversified retail managed funds collectively know as [YouWealth](https://www.bnz.co.nz/personal-banking/investments/youwealth). The manager of these funds recently became part of [Firstcape Group](https://www.firstcape.co.nz/). This project "YouWealthData" is not  related to either BNZ or Firstcape.
+BNZ offer a set of diversified retail managed funds collectively known as [YouWealth](https://www.bnz.co.nz/personal-banking/investments/youwealth). 
+
+The manager of these funds recently became part of [Firstcape Group](https://www.firstcape.co.nz/). 
+
+Please note this project "YouWealthData" is not endorsed by nor supported by either BNZ or Firstcape.
 
 YouWealthData is a simple utility that downloads daily unit prices for all YouWealth funds into a local CSV file, suitable for use in Excel. 
 
@@ -12,7 +16,7 @@ BNZ [closed the "Balanced Growth" fund February 2024](https://blog.bnz.co.nz/202
 BNZ recently [added a new "High Growth" fund](https://blog.bnz.co.nz/2023/11/bnz-expands-investment-offering-by-launching-high-growth-funds-for-the-bnz-kiwisaver-scheme-and-youwealth), and unit prices for this fund are available starting 28 November 2023.
 
 ## Project status
-Complete, ready to use.
+Complete, functional, ready to use.
 
 ## BNZ API Key
 You will need access to a BNZ Fund Unit Prices API Key to use this application. 
@@ -51,5 +55,5 @@ Or you can pass --api_key=APIKEY to Mocha as an argument.
 ## Contributing
 Fire in a pull request by all means. Please adhere to Javascript Standard Style: https://standardjs.com/rules.html
 
-### Disclosure & Disclaimer
-This project is not endorsed nor supported in any way by Bank of New Zealand nor Firstcape. You should not rely on the fitness nor accuracy of anything related to this project, for any purpose. Caveat emptor.
+## Disclosure & Disclaimer
+This project is not endorsed nor supported in any way by BNZ nor Firstcape. You should not rely on the fitness nor accuracy of anything related to this project, for any purpose. Caveat emptor.
