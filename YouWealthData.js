@@ -111,14 +111,19 @@ function writeUnitPriceCSV() {
       { id: 'pricedate', title: 'DATE' },
       { id: 'BNZ2112011-buy', title: 'BNZ2112011 Conservative Buy' },
       { id: 'BNZ2112011-sell', title: 'BNZ2112011 Conservative Sell' },
+      { id: 'BNZ2112011-mid', title: 'BNZ2112011 Conservative Mid' },
       { id: 'BNZ2112010-buy', title: 'BNZ2112010 Moderate Buy' },
       { id: 'BNZ2112010-sell', title: 'BNZ2112010 Moderate Sell' },
+      { id: 'BNZ2112010-mid', title: 'BNZ2112010 Moderate Mid' },
       { id: 'BNZ2112007-buy', title: 'BNZ2112007 Balanced Buy' },
       { id: 'BNZ2112007-sell', title: 'BNZ2112007 Balanced Sell' },
+      { id: 'BNZ2112007-mid', title: 'BNZ2112007 Balanced Mid' },
       { id: 'BNZ2112008-buy', title: 'BNZ2112008 Growth Buy' },
       { id: 'BNZ2112008-sell', title: 'BNZ2112008 Growth Sell' },
+      { id: 'BNZ2112008-mid', title: 'BNZ2112008 Growth Mid' },
       { id: 'BNZ2112012-buy', title: 'BNZ2112012 High Growth Buy' },
-      { id: 'BNZ2112012-sell', title: 'BNZ2112012 High Growth Sell' }
+      { id: 'BNZ2112012-sell', title: 'BNZ2112012 High Growth Sell' },
+      { id: 'BNZ2112012-mid', title: 'BNZ2112012 High Growth Mid' }
     ]
   })
   const records = []
@@ -128,8 +133,12 @@ function writeUnitPriceCSV() {
     let pricesForDate = fundPricesForDates[date]
     let thisDateRecord = { 'pricedate': date }
     for (const [key, price] of Object.entries(pricesForDate)) {
-      thisDateRecord[key + '-buy'] = price.buyPrice.amount
-      thisDateRecord[key + '-sell'] = price.sellPrice.amount
+      const thisBuy = price.buyPrice.amount
+      const thisSell = price.sellPrice.amount
+      const thisMid = (Number.parseFloat(thisBuy) + Number.parseFloat(thisSell)) / 2
+      thisDateRecord[key + '-buy'] = thisBuy
+      thisDateRecord[key + '-sell'] = thisSell
+      thisDateRecord[key + '-mid'] = Math.round(thisMid * 1e5) / 1e5
     }
     records.push(thisDateRecord)
   })

@@ -1,9 +1,15 @@
 # YouWealthData
 
-## Data set changes
-BNZ [closed their "Balanced Growth" fund February 2024](https://blog.bnz.co.nz/2023/11/youwealth-balanced-growth-fund-amalgamation). Their API no longer provides any prices for this fund.
+BNZ sell a family of diversified retail managed funds collectively know as [YouWealth](https://www.bnz.co.nz/personal-banking/investments/youwealth). The manager of these funds recently became part of [Firstcape Group](https://www.firstcape.co.nz/). This project "YouWealthData" is not  related to either BNZ or Firstcape.
 
-BNZ [added a new "High Growth" fund option](https://blog.bnz.co.nz/2023/11/bnz-expands-investment-offering-by-launching-high-growth-funds-for-the-bnz-kiwisaver-scheme-and-youwealth), 28 November 2023.
+YouWealthData is a simple utility that downloads daily unit prices for all YouWealth funds into a local CSV file, suitable for use in Excel. 
+
+The file contains, for each weekday since fund pricing began, the relevant fund's buy unit price, sell unit price, and adds a calculated mid price to aid analysis. 
+
+## Data set changes
+BNZ [closed the "Balanced Growth" fund February 2024](https://blog.bnz.co.nz/2023/11/youwealth-balanced-growth-fund-amalgamation). The API no longer provides prices for this fund so prices are not available in the generated CSV.
+
+BNZ recently [added a new "High Growth" fund](https://blog.bnz.co.nz/2023/11/bnz-expands-investment-offering-by-launching-high-growth-funds-for-the-bnz-kiwisaver-scheme-and-youwealth), and unit prices for this fund are available starting 28 November 2023.
 
 ## Project status
 Complete, ready to use.
@@ -46,4 +52,4 @@ Or you can pass --api_key=APIKEY to Mocha as an argument.
 Fire in a pull request by all means. Please adhere to Javascript Standard Style: https://standardjs.com/rules.html
 
 ### Disclosure & Disclaimer
-This project is not endorsed nor supported in any way by Bank of New Zealand. You should not rely on the fitness nor accuracy of anything related to this project, for any purpose. Caveat emptor and all that.
+This project is not endorsed nor supported in any way by Bank of New Zealand nor Firstcape. You should not rely on the fitness nor accuracy of anything related to this project, for any purpose. Caveat emptor.
