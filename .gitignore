@@ -1,5 +1,5 @@
+# Local copy of API key from BNZ website public source.
 APIKEY.txt
-
 
 # Logs
 logs
@@ -70,5 +70,4 @@ typings/
 temp/
 
 # MacOS cruft
-
 .DS_Store

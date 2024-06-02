@@ -11,7 +11,8 @@ let filename
 let fundPricesForDates = {}
 
 /**
- * Entry function for the application. Validates program inputs and invokes unit price date calculation if correct;
+ * Entry function for the application.
+ * Validates program inputs and invokes unit price date calculation if correct;
  * otherwise emits help content and exits.
  */
 function start() {
@@ -108,16 +109,16 @@ function writeUnitPriceCSV() {
     path: filename,
     header: [
       { id: 'pricedate', title: 'DATE' },
-      { id: 'BNZ2112011-buy', title: 'BNZ2112011 Buy' },
-      { id: 'BNZ2112011-sell', title: 'BNZ2112011 Sell' },
-      { id: 'BNZ2112010-buy', title: 'BNZ2112010 Buy' },
-      { id: 'BNZ2112010-sell', title: 'BNZ2112010 Sell' },
-      { id: 'BNZ2112007-buy', title: 'BNZ2112007 Buy' },
-      { id: 'BNZ2112007-sell', title: 'BNZ2112007 Sell' },
-      { id: 'BNZ2112009-buy', title: 'BNZ2112009 Buy' },
-      { id: 'BNZ2112009-sell', title: 'BNZ2112009 Sell' },
-      { id: 'BNZ2112008-buy', title: 'BNZ2112008 Buy' },
-      { id: 'BNZ2112008-sell', title: 'BNZ2112008 Sell' }
+      { id: 'BNZ2112011-buy', title: 'BNZ2112011 Conservative Buy' },
+      { id: 'BNZ2112011-sell', title: 'BNZ2112011 Conservative Sell' },
+      { id: 'BNZ2112010-buy', title: 'BNZ2112010 Moderate Buy' },
+      { id: 'BNZ2112010-sell', title: 'BNZ2112010 Moderate Sell' },
+      { id: 'BNZ2112007-buy', title: 'BNZ2112007 Balanced Buy' },
+      { id: 'BNZ2112007-sell', title: 'BNZ2112007 Balanced Sell' },
+      { id: 'BNZ2112008-buy', title: 'BNZ2112008 Growth Buy' },
+      { id: 'BNZ2112008-sell', title: 'BNZ2112008 Growth Sell' },
+      { id: 'BNZ2112012-buy', title: 'BNZ2112012 High Growth Buy' },
+      { id: 'BNZ2112012-sell', title: 'BNZ2112012 High Growth Sell' }
     ]
   })
   const records = []

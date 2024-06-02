@@ -19,7 +19,12 @@ describe('UnitPriceParser', function () {
     })
     it('should return valid fund price object for Date.now()', function (done) {
       UnitPriceParser.getPricesForDate(getApiKeyFromProcessArgs(), Date.now(), function (result) {
-        assertValidFundPricesObject(result)
+        assert.strictEqual(Object.keys(result).length, 5)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112007'), true)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112008'), true)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112010'), true)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112011'), true)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112012'), true)
         done()
       }, function (error) {
         console.log(error)
@@ -27,7 +32,13 @@ describe('UnitPriceParser', function () {
     })
     it('should return valid fund price object for 21 May 2018 (first date contributions accepted)', function (done) {
       UnitPriceParser.getPricesForDate(getApiKeyFromProcessArgs(), '2018-05-21', function (result) {
-        assertValidFundPricesObject(result)
+        // BNZ closed the "Balanced Growth" fund BNZ2112009 February 2024.
+        // Their API no longer returns prices for it, despite it being available for more than 5 years
+        assert.strictEqual(Object.keys(result).length, 4)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112007'), true)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112008'), true)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112010'), true)
+        assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112011'), true)
         done()
       }, function (error) {
         console.log(error)
@@ -44,13 +55,4 @@ function getApiKeyFromProcessArgs() {
     }
   }
   return process.env.BNZAPIKEY
-}
-
-function assertValidFundPricesObject(result) {
-  assert.strictEqual(Object.keys(result).length, 5)
-  assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112007'), true)
-  assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112008'), true)
-  assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112009'), true)
-  assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112010'), true)
-  assert.strictEqual(Object.getOwnPropertyNames(result).includes('BNZ2112011'), true)
 }

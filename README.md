@@ -1,5 +1,10 @@
 # YouWealthData
 
+## Data set changes
+BNZ [closed their "Balanced Growth" fund February 2024](https://blog.bnz.co.nz/2023/11/youwealth-balanced-growth-fund-amalgamation). Their API no longer provides any prices for this fund.
+
+BNZ [added a new "High Growth" fund option](https://blog.bnz.co.nz/2023/11/bnz-expands-investment-offering-by-launching-high-growth-funds-for-the-bnz-kiwisaver-scheme-and-youwealth), 28 November 2023.
+
 ## Project status
 Complete, ready to use.
 
